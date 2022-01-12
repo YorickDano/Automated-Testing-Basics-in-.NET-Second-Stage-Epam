@@ -35,7 +35,9 @@ namespace Epam.Fly.Aircrafts
             Speed = speed;
         }
 
-        public int GetLength(Coordinate next) =>
+
+
+        public int SetLength(Coordinate next) =>
                 (int)Math.Sqrt(Math.Pow(next.x - CurrentCoordinate.x, 2)
                 + Math.Pow(next.y - CurrentCoordinate.y, 2)
                 + Math.Pow(next.z - CurrentCoordinate.z, 2));
@@ -46,12 +48,15 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.y = next.y;
             CurrentCoordinate.z = next.z;
 
-            Console.WriteLine($"The flight will take: {Length} hours.");
+            Console.WriteLine($"The flight will take: {GetFlyTime(next)} hours.");
         }
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            Length = GetLength(coordinate);
+            if (Length == 0 || coordinate != CurrentCoordinate)
+            {
+                Length = SetLength(coordinate);
+            }
 
             return Length / Speed;
         }
