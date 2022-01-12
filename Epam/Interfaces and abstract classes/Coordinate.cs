@@ -60,6 +60,16 @@ namespace Epam.Fly
             get => Z;
         }
 
+        public static bool operator ==(Coordinate coordinate1 ,Coordinate coordinate2)
+        {
+            return coordinate1.x == coordinate2.x && coordinate1.y == coordinate2.y && coordinate1.z == coordinate2.z;
+        }
+
+        public static bool operator !=(Coordinate coordinate1, Coordinate coordinate2)
+        {
+            return !(coordinate1 == coordinate2);
+        }
+
         public Coordinate(int x, int y, int z)
         {
             this.X = x;

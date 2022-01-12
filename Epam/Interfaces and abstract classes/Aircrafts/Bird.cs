@@ -6,9 +6,18 @@ namespace Epam.Fly.Aircrafts
     {
         Coordinate CurrentCoordinate;
 
+        private int Length;
+        private int Speed;
+
         public Bird(Coordinate currentCoordinate)
         {
             this.CurrentCoordinate = currentCoordinate;
+        }
+
+        public Bird(Coordinate currentCoordinate, int speed)
+        {
+            this.CurrentCoordinate = currentCoordinate;
+            Speed = speed;
         }
 
         public Bird(int x, int y, int z)
@@ -18,7 +27,17 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.z = z;
         }
 
-        public int GetLength(Coordinate next) =>
+        public Bird(int x, int y, int z, int speed)
+        {
+            CurrentCoordinate.x = x;
+            CurrentCoordinate.y = y;
+            CurrentCoordinate.z = z;
+            Speed = speed;
+        }
+
+
+
+        public int SetLength(Coordinate next) =>
                 (int)Math.Sqrt(Math.Pow(next.x - CurrentCoordinate.x, 2)
                 + Math.Pow(next.y - CurrentCoordinate.y, 2)
                 + Math.Pow(next.z - CurrentCoordinate.z, 2));
@@ -34,10 +53,12 @@ namespace Epam.Fly.Aircrafts
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            int length = GetLength(coordinate);
+            if (Length == 0 || coordinate != CurrentCoordinate)
+            {
+                Length = SetLength(coordinate);
+            }
 
-            int speed = new Random().Next(21);
-            return length / speed;
+            return Length / Speed;
         }
     }
 }

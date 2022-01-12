@@ -6,6 +6,8 @@ namespace Epam.Fly.Aircrafts
     {
         Coordinate CurrentCoordinate;
 
+        private int Length;
+
         public Plane(Coordinate currentCoordinate)
         {
             this.CurrentCoordinate = currentCoordinate;
@@ -18,7 +20,7 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.z = z;
         }
 
-        public int GetLength(Coordinate next) =>
+        public int SetLength(Coordinate next) =>
                 (int)Math.Sqrt(Math.Pow(next.x - CurrentCoordinate.x, 2)
                 + Math.Pow(next.y - CurrentCoordinate.y, 2)
                 + Math.Pow(next.z - CurrentCoordinate.z, 2));
@@ -34,16 +36,19 @@ namespace Epam.Fly.Aircrafts
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            int length = GetLength(coordinate);
+            if (Length == 0 || coordinate != CurrentCoordinate)
+            {
+                Length = SetLength(coordinate);
+            }
 
-            int speed = 200 + Convert.ToInt32((length.ToString().Remove(length.ToString().Length - 1) + "0"));
+            int speed = 200 + System.Convert.ToInt32((Length.ToString().Remove(Length.ToString().Length - 1) + "0"));
 
             if (speed > 1000)
             {
                 speed = 1000; // Ограничение по скорости самолёта
             }
 
-            return length / speed;
+            return Length / speed;
         }
 
     }

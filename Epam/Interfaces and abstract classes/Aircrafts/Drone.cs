@@ -6,6 +6,8 @@ namespace Epam.Fly.Aircrafts
     {
         Coordinate CurrentCoordinate;
 
+        private int Length;
+
         public Drone(Coordinate currentCoordinate)
         {
             this.CurrentCoordinate = currentCoordinate;
@@ -18,7 +20,7 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.z = z;
         }
 
-        public int GetLength(Coordinate next) =>
+        public int SetLength(Coordinate next) =>
                  (int)Math.Sqrt(Math.Pow(next.x - CurrentCoordinate.x, 2)
                  + Math.Pow(next.y - CurrentCoordinate.y, 2)
                  + Math.Pow(next.z - CurrentCoordinate.z, 2));
@@ -34,9 +36,12 @@ namespace Epam.Fly.Aircrafts
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            int length = GetLength(coordinate);
+            if (Length == 0 || coordinate != CurrentCoordinate)
+            {
+                Length = SetLength(coordinate);
+            }
 
-            if (length > 1000)
+            if (Length > 1000)
             {
                 Console.WriteLine("Too far...");
                 throw new Exception("Too far");
@@ -44,7 +49,7 @@ namespace Epam.Fly.Aircrafts
 
             int speed = new Random().Next(101);
 
-            return (int)((length / speed) * 0.1 + (length / speed));
+            return (int)((Length / speed) * 0.1 + (Length / speed));
         }
 
     }
