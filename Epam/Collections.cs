@@ -12,7 +12,6 @@ namespace Epam
     [Serializable]
     public class Collections
     {
-
         static ArrayList array = new ArrayList() { new LightCar(), new HeavyCar(), new Bus(), new Scooter() };
 
         public static void ToXml()
