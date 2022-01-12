@@ -2,16 +2,18 @@
 
 namespace Epam.Fly.Aircrafts
 {
-    class Bird : IFlyable
+    class Plane : IFlyable
     {
         Coordinate CurrentCoordinate;
 
-        public Bird(Coordinate currentCoordinate)
+        private int Length;
+
+        public Plane(Coordinate currentCoordinate)
         {
             this.CurrentCoordinate = currentCoordinate;
         }
 
-        public Bird(int x, int y, int z)
+        public Plane(int x, int y, int z)
         {
             CurrentCoordinate.x = x;
             CurrentCoordinate.y = y;
@@ -29,15 +31,22 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.y = next.y;
             CurrentCoordinate.z = next.z;
 
-            Console.WriteLine($"The flight will take: {GetFlyTime(next)} hours.");
+            Console.WriteLine($"The flight will take: {Length} hours.");
         }
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            int length = GetLength(coordinate);
+            Length = GetLength(coordinate);
 
-            int speed = new Random().Next(21);
-            return length / speed;
+            int speed = 200 + System.Convert.ToInt32((Length.ToString().Remove(Length.ToString().Length - 1) + "0"));
+
+            if (speed > 1000)
+            {
+                speed = 1000; // Ограничение по скорости самолёта
+            }
+
+            return Length / speed;
         }
+
     }
 }

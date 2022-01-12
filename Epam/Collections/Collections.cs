@@ -28,26 +28,27 @@ namespace Epam
 
         public static void Collection()
         {
-            var array = new List<Vehicle>();
+            var vehiclesList = new List<Vehicle>();
 
-            Setting(ref array);
+            Setting(ref vehiclesList);
             
             WriteLine("\nAll Vehicles with engine volume more than 1.5l\n");
-            InfoAboutEngines(array);
+            GetInfoAboutEngines(vehiclesList);
 
             WriteLine("\nInformation about Buses and Trucks engines\n");
-            InfoAboutTracksAndBusesEngines(array);
+            GetInfoAboutTracksAndBusesEngines(vehiclesList);
 
-            InfoAboutAllVehicleByTransmissionType(array);
+            GetInfoAboutAllVehicleByTransmissionType(vehiclesList);
         }
 
-        public static void InfoAboutAllVehicleByTransmissionType(List<Vehicle> array)
+        public static void GetInfoAboutAllVehicleByTransmissionType(List<Vehicle> array)
         {
             var TransmissionTypes = FindAllTransmissionTypes(array);
 
             foreach (var item in TransmissionTypes)
             {
                 WriteLine("\nTransmission type: {0}\n", item);
+
                 foreach (var element in array.FindAll(x => x.transmission.type == item))
                 {
                     if (element is LightCar)
@@ -90,16 +91,27 @@ namespace Epam
             Random random = new Random();
 
             for (int i = 0; i < 3; ++i)
+            {
                 array.Add(new LightCar(random.Next(100000)));
+            }
+
             for (int i = 0; i < 2; ++i)
+            {
                 array.Add(new HeavyCar(random.Next(10000)));
+            }
+
             for (int i = 0; i < 1; ++i)
+            {
                 array.Add(new Bus(random.Next(1000)));
+            }
+
             for (int i = 0; i < 2; ++i)
+            {
                 array.Add(new Scooter(random.Next(100)));
+            }
         }
 
-        public static void InfoAboutEngines(List<Vehicle> array)
+        public static void GetInfoAboutEngines(List<Vehicle> array)
         {
             foreach (var element in array.FindAll(x => x.engine.volume > 1.5))
             {
@@ -115,7 +127,7 @@ namespace Epam
             }
         }
 
-        public static void InfoAboutTracksAndBusesEngines(List<Vehicle> array)
+        public static void GetInfoAboutTracksAndBusesEngines(List<Vehicle> array)
         {
             foreach (var item in array.FindAll(x => x.GetType() == new HeavyCar().GetType() || x.GetType() == new Bus().GetType()))
             {

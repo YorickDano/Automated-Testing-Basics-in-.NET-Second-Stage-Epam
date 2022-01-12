@@ -2,20 +2,37 @@
 
 namespace Epam.Fly.Aircrafts
 {
-    class Plane : IFlyable
+    class Bird : IFlyable
     {
         Coordinate CurrentCoordinate;
 
-        public Plane(Coordinate currentCoordinate)
+        private int Length;
+        private int Speed;
+
+        public Bird(Coordinate currentCoordinate)
         {
             this.CurrentCoordinate = currentCoordinate;
         }
 
-        public Plane(int x, int y, int z)
+        public Bird(Coordinate currentCoordinate, int speed)
+        {
+            this.CurrentCoordinate = currentCoordinate;
+            Speed = speed;
+        }
+
+        public Bird(int x, int y, int z)
         {
             CurrentCoordinate.x = x;
             CurrentCoordinate.y = y;
             CurrentCoordinate.z = z;
+        }
+
+        public Bird(int x, int y, int z, int speed)
+        {
+            CurrentCoordinate.x = x;
+            CurrentCoordinate.y = y;
+            CurrentCoordinate.z = z;
+            Speed = speed;
         }
 
         public int GetLength(Coordinate next) =>
@@ -29,22 +46,14 @@ namespace Epam.Fly.Aircrafts
             CurrentCoordinate.y = next.y;
             CurrentCoordinate.z = next.z;
 
-            Console.WriteLine($"The flight will take: {GetFlyTime(next)} hours.");
+            Console.WriteLine($"The flight will take: {Length} hours.");
         }
 
         public int GetFlyTime(Coordinate coordinate)
         {
-            int length = GetLength(coordinate);
+            Length = GetLength(coordinate);
 
-            int speed = 200 + Convert.ToInt32((length.ToString().Remove(length.ToString().Length - 1) + "0"));
-
-            if (speed > 1000)
-            {
-                speed = 1000; // Ограничение по скорости самолёта
-            }
-
-            return length / speed;
+            return Length / Speed;
         }
-
     }
 }

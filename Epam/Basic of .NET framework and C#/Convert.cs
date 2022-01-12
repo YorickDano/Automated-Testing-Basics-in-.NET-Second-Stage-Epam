@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Epam
 {
-    class FromTo
+    class Convert
     {
         public static string ConvertTensToN(int number, int n)
         {
